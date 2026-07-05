@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Usama Arfi | Professional Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+        header { background-color: #ffffff; padding: 15px 10%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .logo { display: flex; align-items: center; font-size: 24px; font-weight: bold; color: #0b3d60; }
+        .logo i { color: #25D366; margin-right: 10px; font-size: 28px; }
+        .hero { background-color: #0b3d60; color: white; padding: 50px 10%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+        .hero-text { max-width: 50%; min-width: 300px; }
+        .hero-text h2 { font-size: 36px; margin-bottom: 10px; }
+        .hero-text p { font-size: 18px; margin-bottom: 20px; line-height: 1.6; }
+        .btn { background-color: #25D366; color: white; padding: 12px 25px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        .btn:hover { background-color: #128C7E; }
+        .hero-image { text-align: center; }
+        .hero-image img { width: 100%; max-width: 300px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .content { flex: 1; padding: 50px 10%; background-color: white; }
+        .content h3 { color: #0b3d60; font-size: 28px; }
+        .content p { font-size: 16px; line-height: 1.8; color: #555; }
+        
+        /* Footer */
+        footer { background-color: #0b3d60; color: white; text-align: center; padding: 20px 10%; margin-top: auto; }
+        footer p { margin: 5px 0; font-size: 16px; }
+        .footer-whatsapp { display: inline-flex; align-items: center; background-color: #25D366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 10px; }
+        .footer-whatsapp i { margin-right: 8px; font-size: 20px; }
+        .footer-whatsapp:hover { background-color: #128C7E; }
+
+        /* Modal & Form */
+        .modal { display: none; position: fixed; z-index: 2; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); }
+        .modal-content { background-color: white; margin: 5% auto; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px; position: relative; }
+        .close { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #aaa; }
+        .close:hover { color: black; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .submit-btn { background-color: #0b3d60; color: white; width: 100%; padding: 12px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        .submit-btn:hover { background-color: #082d47; }
+        
+        /* Success Popup */
+        #successPopup { display: none; text-align: center; padding: 20px; }
+        #successPopup i { color: #25D366; font-size: 50px; margin-bottom: 15px; }
+        #successPopup h3 { color: #0b3d60; margin: 0 0 10px 0; }
+        
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; text-align: center; }
+            .hero-text { max-width: 100%; margin-bottom: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-stethoscope"></i>
+            DR. USAMA ARFI
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Expert Healthcare Professional</h2>
+            <p>Compassionate healthcare services. Expertise in emergency care, OPD, and pharmacy. Your health is my first priority.</p>
+            <button class="btn" onclick="openModal()">Book Appointment</button>
+        </div>
+        <div class="hero-image">
+            <img src="./eaf919f9-1e47-4c97-9dab-32958c6a5330-1_all_60.jpg" alt="Dr Usama Arfi">
+        </div>
+    </section>
+
+    <section class="content">
+        <h3>About Dr. Arfi</h3>
+        <p>Bringing hands-on expertise from rigorous clinical internships and professional healthcare environments. Skilled in managing acute medical situations, routine patient check-ups, and ensuring optimal care delivery in high-pressure medical settings.</p>
+    </section>
+
+    <footer>
+        <p><strong>Dr. Usama Arfi</strong></p>
+        <p>Phone: +92 324 6767582</p>
+        <a href="https://wa.me/923246767582" class="footer-whatsapp" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Contact on WhatsApp
+        </a>
+    </footer>
+
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            
+            <div id="formSection">
+                <h3 style="color: #0b3d60; margin-top: 0;">Book Your Appointment</h3>
+                <form id="bookingForm" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="text" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Date *</label>
+                        <input type="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Reason for Visit</label>
+                        <select name="reason">
+                            <option value="General Checkup">General Checkup</option>
+                            <option value="Emergency Consult">Emergency Consult</option>
+                            <option value="Follow-up">Follow-up</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">Confirm Appointment</button>
+                </form>
+            </div>
+
+            <div id="successPopup">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3>Thank You!</h3>
+                <p>Your appointment request has been submitted successfully. Please wait for confirmation.</p>
+                <button class="btn" onclick="closeModal()" style="margin-top: 15px;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Yahan par hum Google Apps Script ka URL lagayenge baad mein!
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyHOBE4NozlDKtQYvY2683YZ8KCiJmh16mp6wA_sxBsRCB9bO3ldYBcMvMJ0Go03p027Q/exec';
+
+        var modal = document.getElementById("appointmentModal");
+        
+        function openModal() {
+            document.getElementById("formSection").style.display = "block";
+            document.getElementById("successPopup").style.display = "none";
+            document.getElementById("bookingForm").reset();
+            modal.style.display = "block";
+        }
+        
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+            var btn = document.getElementById("submitBtn");
+            btn.innerText = "Submitting...";
+            btn.disabled = true;
+
+            var formData = new FormData(document.getElementById("bookingForm"));
+            
+            // Demo for now: If URL is not added, it will just show the popup after 1 second
+            if(scriptURL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+                setTimeout(showSuccess, 1000);
+                return;
+            }
+
+            // Sends data to Google Sheets in background
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => showSuccess())
+                .catch(error => {
+                    alert('Error submitting form!');
+                    btn.innerText = "Confirm Appointment";
+                    btn.disabled = false;
+                });
+        }
+
+        function showSuccess() {
+            document.getElementById("formSection").style.display = "none";
+            document.getElementById("successPopup").style.display = "block";
+            var btn = document.getElementById("submitBtn");
+            btn.innerText = "Confirm Appointment";
+            btn.disabled = false;
+        }
+    </script>
+</body>
+</html>
